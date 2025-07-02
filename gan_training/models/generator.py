@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 U-Net Generator for Echocardiography Dehazing
 Implements a U-Net architecture with skip connections for image-to-image translation
@@ -99,8 +100,18 @@ class AttentionBlock(nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, g, x):
+        # Ensure g and x have the same spatial dimensions
+        if g.size()[2:] != x.size()[2:]:
+            g = F.interpolate(g, size=x.size()[2:], mode='bilinear', align_corners=True)
+        
         g1 = self.W_g(g)
         x1 = self.W_x(x)
+        
+        # Ensure g1 and x1 have the same shape before addition
+        if g1.size() != x1.size():
+            print(f"Shape mismatch: g1={g1.shape}, x1={x1.shape}")
+            raise RuntimeError(f"Shape mismatch in AttentionBlock: g1={g1.shape}, x1={x1.shape}")
+        
         psi = self.relu(g1 + x1)
         psi = self.psi(psi)
         return x * psi
@@ -128,10 +139,10 @@ class UNetGenerator(nn.Module):
 
         # Attention blocks
         if use_attention:
-            self.att1 = AttentionBlock(F_g=1024//factor, F_l=512, F_int=256)
-            self.att2 = AttentionBlock(F_g=512, F_l=256, F_int=128)
-            self.att3 = AttentionBlock(F_g=256, F_l=128, F_int=64)
-            self.att4 = AttentionBlock(F_g=128, F_l=64, F_int=32)
+            self.att1 = AttentionBlock(F_g=1024//factor, F_l=512, F_int=512)
+            self.att2 = AttentionBlock(F_g=512//factor, F_l=256, F_int=256)
+            self.att3 = AttentionBlock(F_g=256//factor, F_l=128, F_int=128)
+            self.att4 = AttentionBlock(F_g=128//factor, F_l=64, F_int=64)
 
         # Decoder
         self.up1 = Up(1024, 512 // factor, bilinear)
@@ -232,7 +243,7 @@ class EnhancedUNetGenerator(nn.Module):
             *[ResidualBlock(256) for _ in range(num_residual_blocks)]
         )
 
-        # Upsampling
+        # Upampling
         self.up1 = nn.Sequential(
             nn.ConvTranspose2d(256, 128, kernel_size=3, stride=2,
                                padding=1, output_padding=1, bias=False),

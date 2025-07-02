@@ -29,8 +29,8 @@ class Config:
 
         # Dataset parameters
         self.image_size = (256, 256)
-        self.batch_size = 16
-        self.num_workers = 4
+        self.batch_size = 4  # Reduced from 16 to reduce memory usage
+        self.num_workers = 2  # Reduced from 4 to reduce memory usage
         self.use_roi = True
         self.patient_split_ratio = (0.7, 0.2, 0.1)  # train, val, test
         self.patient_wise_split = True  # Whether to split dataset by patients
@@ -64,6 +64,7 @@ class Config:
         self.lambda_edge = 10.0
         self.lambda_tv = 0.01
         self.lambda_gan = 1.0
+        self.lambda_adversarial = 1.0  # Weight for the adversarial loss
 
         # GAN parameters
         self.gan_mode = 'lsgan'  # 'lsgan', 'vanilla', 'wgangp'

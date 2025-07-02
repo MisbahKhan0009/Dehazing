@@ -262,13 +262,11 @@ def train_epoch(generator, discriminator, dataloader, optimizer_g, optimizer_d,
         optimizer_d.zero_grad()
 
         # Real pairs (noisy, clean)
-        real_pairs = torch.cat([noisy, clean], dim=1)
-        pred_real = discriminator(real_pairs)
+        pred_real = discriminator(noisy, clean)
         loss_d_real = losses['gan'](pred_real, True)
 
         # Fake pairs (noisy, generated)
-        fake_pairs = torch.cat([noisy, fake_clean.detach()], dim=1)
-        pred_fake = discriminator(fake_pairs)
+        pred_fake = discriminator(noisy, fake_clean.detach())
         loss_d_fake = losses['gan'](pred_fake, False)
 
         # Total discriminator loss
@@ -283,8 +281,7 @@ def train_epoch(generator, discriminator, dataloader, optimizer_g, optimizer_d,
             optimizer_g.zero_grad()
 
             # Adversarial loss
-            fake_pairs = torch.cat([noisy, fake_clean], dim=1)
-            pred_fake = discriminator(fake_pairs)
+            pred_fake = discriminator(noisy, fake_clean)
             loss_g_gan = losses['gan'](
                 pred_fake, True) * config.lambda_adversarial
 
@@ -308,8 +305,9 @@ def train_epoch(generator, discriminator, dataloader, optimizer_g, optimizer_d,
                 epoch_losses['g_ssim'] += loss_g_ssim.item()
 
             if config.lambda_cnr > 0 and roi is not None:
+                # CNRLoss only needs the generated image and ROI mask
                 loss_g_cnr = losses['cnr'](
-                    fake_clean, clean, roi) * config.lambda_cnr
+                    fake_clean, roi) * config.lambda_cnr
                 loss_g_total += loss_g_cnr
                 epoch_losses['g_cnr'] += loss_g_cnr.item()
 
@@ -384,13 +382,11 @@ def validate_epoch(generator, discriminator, dataloader, losses, config, epoch, 
 
             # Calculate losses (same as training but no backward pass)
             # Real pairs
-            real_pairs = torch.cat([noisy, clean], dim=1)
-            pred_real = discriminator(real_pairs)
+            pred_real = discriminator(noisy, clean)
             loss_d_real = losses['gan'](pred_real, True)
 
             # Fake pairs
-            fake_pairs = torch.cat([noisy, fake_clean], dim=1)
-            pred_fake = discriminator(fake_pairs)
+            pred_fake = discriminator(noisy, fake_clean)
             loss_d_fake = losses['gan'](pred_fake, False)
 
             # Discriminator loss
@@ -599,5 +595,41 @@ def generate_sample_images(generator, dataloader, config, epoch, writer):
         writer.add_images('Samples/Generated', fake_vis, epoch)
 
 
-if __name__ == "__main__":
-    main()
+def train(self):
+    # Enable gradient checkpointing for memory efficiency
+    self.generator.use_gradient_checkpointing()
+    self.discriminator.use_gradient_checkpointing()
+
+    # Empty CUDA cache before training
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
+    for epoch in range(self.start_epoch, self.config.num_epochs):
+        self.train_epoch(epoch)
+
+        # Clear memory after each epoch
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
+        if epoch % self.config.save_interval == 0:
+            self.save_checkpoint(epoch)
+
+    def train_epoch(self, epoch):
+        for batch_idx, (clean_imgs, noisy_imgs) in enumerate(self.train_dataloader):
+            # Move to device
+            clean_imgs = clean_imgs.to(self.device)
+            noisy_imgs = noisy_imgs.to(self.device)
+
+            # Train discriminator
+            self.train_discriminator(clean_imgs, noisy_imgs)
+
+            # Train generator
+            self.train_generator(clean_imgs, noisy_imgs)
+
+            # Clear memory after each batch
+            if torch.cuda.is_available() and batch_idx % 10 == 0:
+                torch.cuda.empty_cache()
+
+            # Log progress
+            if batch_idx % self.config.log_interval == 0:
+                self.log_progress(epoch, batch_idx)

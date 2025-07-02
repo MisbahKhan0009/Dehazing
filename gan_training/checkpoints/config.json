@@ -9,8 +9,8 @@
     256,
     256
   ],
-  "batch_size": 16,
-  "num_workers": 4,
+  "batch_size": 4,
+  "num_workers": 2,
   "use_roi": true,
   "patient_split_ratio": [
     0.7,
@@ -41,6 +41,7 @@
   "lambda_edge": 10.0,
   "lambda_tv": 0.01,
   "lambda_gan": 1.0,
+  "lambda_adversarial": 1.0,
   "gan_mode": "lsgan",
   "discriminator_update_freq": 1,
   "generator_update_freq": 1,
