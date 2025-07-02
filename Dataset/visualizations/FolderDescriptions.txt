@@ -1,0 +1,19 @@
+1. triplets: Contains side-by-side comparisons of clean, noisy, and ROI-annotated images for each patient and selected frames. These visualizations are useful for understanding the relationship between clean echocardiograms, their noisy counterparts, and the ROI annotations.
+
+2. pairs: Contains side-by-side comparisons of clean and noisy images. These visualizations focus on the direct comparison between easy-to-image and difficult-to-image subjects, without ROI annotations.
+
+3. roi_overlays: Contains two types of ROI visualizations:
+   a. individual: Shows ROI annotations overlaid on noisy images with 50% opacity, useful for evaluating ROI placement
+   b. comparison: Shows three-panel views of original noisy image, ROI mask, and the overlay combination
+
+4. samples: Contains representative grid visualizations showing various image combinations, providing a quick overview of the dataset's content and relationships.
+
+5. statistics: Contains quantitative analysis of the dataset:
+   a. dataset_stats.txt: Detailed numerical statistics about image counts and distributions
+   b. dataset_statistics.png: Visual charts showing data distribution and patient availability
+
+Note: These visualizations are specifically designed to aid in:
+- Understanding the relationship between clean and noisy echocardiogram images
+- Validating ROI annotations for evaluation metrics (CNR, gCNR, and KS test)
+- Analyzing the dataset's structure and distribution
+- Quality assessment of image pairs and ROI placements
