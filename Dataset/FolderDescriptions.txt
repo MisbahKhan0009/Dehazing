@@ -1,0 +1,3 @@
+1. clean: Contains clean echocardiography images from easy-to-image subjects. 
+2. noisy: Includes noisy echocardiography images obtained from difficult-to-image subjects.
+3. noisy_roi: Contains Region of Interest (ROI) annotations on the noisy images. These ROIs are specifically designed for computing evaluation metrics, including CNR (Contrast-to-Noise Ratio), gCNR (generalized CNR), and the KS test.
