@@ -411,8 +411,9 @@ def validate_epoch(generator, discriminator, dataloader, losses, config, epoch, 
                 metrics = calculate_metrics(
                     fake_clean[i:i+1],
                     clean[i:i+1],
+                    # Pass ROI mask if available
                     roi[i:i+1] if roi is not None else None,
-                    config.eval_metrics
+                    device=config.device
                 )
                 all_metrics.append(metrics)
 

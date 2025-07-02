@@ -12,20 +12,21 @@ from skimage.metrics import peak_signal_noise_ratio as psnr
 import lpips
 
 
-def calculate_metrics(predicted, target, device='cuda'):
+def calculate_metrics(predicted, target, roi_mask=None, device='cuda'):
     """
     Wrapper function to calculate metrics between predicted and target images
 
     Args:
         predicted: Predicted clean images
         target: Target clean images
+        roi_mask: Optional ROI masks for focused evaluation
         device: Device to perform calculations on
 
     Returns:
         Dictionary of calculated metrics
     """
     calculator = MetricsCalculator(device)
-    return calculator.calculate_metrics(predicted, target)
+    return calculator.calculate_metrics(predicted, target, roi_mask=roi_mask)
 
 
 class MetricsCalculator:
