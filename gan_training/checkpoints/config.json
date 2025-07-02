@@ -1,0 +1,121 @@
+{
+  "project_root": "/home/mejba/Documents/Dehazing/gan_training",
+  "dataset_path": "/home/mejba/Documents/Dehazing/Dataset",
+  "csv_path": "/home/mejba/Documents/Dehazing/dataset_mapping.csv",
+  "checkpoint_dir": "/home/mejba/Documents/Dehazing/gan_training/checkpoints",
+  "log_dir": "/home/mejba/Documents/Dehazing/gan_training/logs",
+  "results_dir": "/home/mejba/Documents/Dehazing/gan_training/results",
+  "image_size": [
+    256,
+    256
+  ],
+  "batch_size": 16,
+  "num_workers": 4,
+  "use_roi": true,
+  "patient_split_ratio": [
+    0.7,
+    0.2,
+    0.1
+  ],
+  "patient_wise_split": true,
+  "generator_type": "unet",
+  "discriminator_type": "conditional_patch",
+  "use_attention": true,
+  "generator_channels": 1,
+  "discriminator_channels": 1,
+  "ndf": 64,
+  "discriminator_layers": 3,
+  "use_spectral_norm": false,
+  "num_epochs": 200,
+  "learning_rate_g": 0.0002,
+  "learning_rate_d": 0.0002,
+  "beta1": 0.5,
+  "beta2": 0.999,
+  "weight_decay": 0.0001,
+  "resume_training": false,
+  "resume_checkpoint": null,
+  "lambda_l1": 100.0,
+  "lambda_perceptual": 1.0,
+  "lambda_ssim": 1.0,
+  "lambda_cnr": 0.1,
+  "lambda_edge": 10.0,
+  "lambda_tv": 0.01,
+  "lambda_gan": 1.0,
+  "gan_mode": "lsgan",
+  "discriminator_update_freq": 1,
+  "generator_update_freq": 1,
+  "gradient_penalty_lambda": 10.0,
+  "use_progressive_training": false,
+  "progressive_epochs": [
+    50,
+    100,
+    150
+  ],
+  "progressive_sizes": [
+    [
+      128,
+      128
+    ],
+    [
+      192,
+      192
+    ],
+    [
+      256,
+      256
+    ]
+  ],
+  "use_curriculum_learning": false,
+  "curriculum_epochs": [
+    30,
+    60,
+    90
+  ],
+  "curriculum_difficulty_levels": 3,
+  "log_interval": 100,
+  "save_interval": 10,
+  "eval_interval": 5,
+  "generate_samples_interval": 10,
+  "num_sample_images": 8,
+  "eval_metrics": [
+    "psnr",
+    "ssim",
+    "cnr",
+    "lpips"
+  ],
+  "save_best_model": true,
+  "best_metric": "psnr",
+  "device": "cpu",
+  "mixed_precision": true,
+  "dataloader_pin_memory": true,
+  "seed": 42,
+  "deterministic": false,
+  "use_ema": false,
+  "ema_decay": 0.999,
+  "use_self_supervised": false,
+  "pretrain_epochs": 20,
+  "use_augmentation": true,
+  "horizontal_flip_prob": 0.5,
+  "rotation_degrees": 5,
+  "brightness_jitter": 0.1,
+  "contrast_jitter": 0.1,
+  "use_early_stopping": true,
+  "patience": 20,
+  "min_delta": 0.0001,
+  "use_lr_scheduler": true,
+  "scheduler_type": "cosine",
+  "lr_decay_epochs": [
+    100,
+    150
+  ],
+  "lr_decay_gamma": 0.5,
+  "cosine_eta_min": 1e-06,
+  "validation_split": "patient_wise",
+  "cross_validation_folds": null,
+  "use_ensemble": false,
+  "ensemble_size": 3,
+  "use_tensorboard": true,
+  "use_wandb": false,
+  "wandb_project": "echocardiography-dehazing",
+  "experiment_name": "gan_baseline"
+}
