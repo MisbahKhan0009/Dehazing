@@ -1,0 +1,10 @@
+Echocardiography Dataset Statistics
+========================================
+
+Total Images: 4376
+Complete Triplets: 237
+Clean-Noisy Pairs: 2324
+Clean Only: 2052
+Patients with Noisy Data: 40
+Patients with ROI Data: 40
+Total Patients: 75
