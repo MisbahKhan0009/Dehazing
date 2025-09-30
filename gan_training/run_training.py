@@ -33,7 +33,7 @@ def install_requirements():
 def check_dataset():
     """Check if dataset is available"""
     dataset_path = project_root.parent / "Dataset"
-    csv_path = project_root.parent / "dataset_mapping.csv"
+    csv_path = project_root.parent / "Dataset" / "dataset_mapping.csv"
 
     if not dataset_path.exists():
         print(f"Error: Dataset not found at {dataset_path}")
