@@ -441,7 +441,7 @@ def test_dataset():
     """Test dataset functionality"""
     # Paths (adjust as needed)
     dataset_path = "../Dataset"
-    csv_path = "../dataset_mapping.csv"
+    csv_path = "../Dataset/dataset_mapping.csv"
 
     # Create data module
     data_module = EchocardiographyDataModule(
@@ -779,7 +779,7 @@ def test_dataset():
     """Test dataset functionality"""
     # Paths (adjust as needed)
     dataset_path = "../Dataset"
-    csv_path = "../dataset_mapping.csv"
+    csv_path = "../Dataset/dataset_mapping.csv"
 
     # Create data module
     data_module = EchocardiographyDataModule(
@@ -1117,7 +1117,7 @@ def test_dataset():
     """Test dataset functionality"""
     # Paths (adjust as needed)
     dataset_path = "../Dataset"
-    csv_path = "../dataset_mapping.csv"
+    csv_path = "../Dataset/dataset_mapping.csv"
 
     # Create data module
     data_module = EchocardiographyDataModule(

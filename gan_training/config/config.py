@@ -17,7 +17,7 @@ class Config:
         # Paths
         self.project_root = Path(__file__).parent.parent
         self.dataset_path = self.project_root.parent / "Dataset"
-        self.csv_path = self.project_root.parent / "dataset_mapping.csv"
+        self.csv_path = self.project_root.parent / "Dataset" / "dataset_mapping.csv"
         self.checkpoint_dir = self.project_root / "checkpoints"
         self.log_dir = self.project_root / "logs"
         self.results_dir = self.project_root / "results"
