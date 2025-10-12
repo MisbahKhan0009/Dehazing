@@ -142,8 +142,8 @@ venv.bak/
 
 # PyTorch Lightning logs and checkpoints
 lightning_logs/
-checkpoints/
-*.ckpt
+
+
 
 # TensorBoard logs
 runs/
