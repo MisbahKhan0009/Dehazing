@@ -149,22 +149,13 @@ runs/
 tb_logs/
 
 # Data files
-*.h5
-*.hdf5
-*.pth
-*.pt
+
 *.npz
 *.npy
 
-# Model weights
-*.weights
+
 
 # Temporary files
 *.tmp
 *.temp
 *.bak
-
-# Dehazing project specific
-output/
-results/
-logs/
