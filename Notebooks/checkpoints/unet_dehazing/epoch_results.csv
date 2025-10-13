@@ -1,0 +1,1 @@
+time, epoch, train_l1, val_l1, val_psnr, val_ssim, val_cnr, val_gcnr, val_ks_stat, val_ks_p, is_best, best_metric, best_value, best_checkpoint
