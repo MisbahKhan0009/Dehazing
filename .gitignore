@@ -148,7 +148,7 @@ lightning_logs/
 runs/
 tb_logs/
 
-# Data files
+# Data files removed
 *.h5
 *.hdf5
 *.pth
