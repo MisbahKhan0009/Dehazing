@@ -1,3 +1,51 @@
+# Dehazing
+## Flask backend for GAN denoiser
+
+This repository now includes a simple Flask backend that loads the trained GAN generator and exposes a web/API to denoise uploaded images.
+
+Location: `backend/app.py`
+
+### Prerequisites
+
+
+Install packages (Windows PowerShell):
+
+```powershell
+cd backend
+pip install -r requirements.txt
+# If torch wasn't installed by the above on your platform, install from PyTorch index, e.g. CUDA 12.1:
+# pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
+```
+
+### Configure checkpoint
+
+By default the app loads the best checkpoint from:
+
+```
+C:\Users\mkhan\Documents\Projects\CSE498\Dehazing\Dehazing\checkpoints\gan_dehazing\best.pt
+```
+
+You can override this via environment variable `GAN_DENOISING_CKPT`.
+
+### Run the server
+
+```powershell
+cd backend
+python .\app.py
+# The server starts on http://0.0.0.0:5000
+```
+
+### Use the server
+
+
+Health check:
+
+```
+GET /health  -> returns device, number of GPUs, and the checkpoint path
+```
+
+### Notes
+
 # Echocardiography Dehazing Using GANs
 
 This project implements a deep learning approach for dehazing echocardiography images using Generative Adversarial Networks (GANs). The goal is to enhance the quality of ultrasound images captured from difficult-to-image subjects by removing noise and improving visibility.
@@ -54,7 +102,6 @@ Dehazing/
     └── Dehazing_Ultrasound_Using_Diffusion_Models.pdf
 ```
 
----
 
 ## 🛠️ Setup Instructions
 
@@ -85,7 +132,6 @@ source .venv/bin/activate
 pip install -r gan_training/requirements.txt
 ```
 
----
 
 ### 2. Verify Dataset Structure
 
@@ -96,7 +142,6 @@ The dataset should be organized as follows in the `Dataset/` folder:
 * `noisy_roi/`: Region of Interest masks for evaluation
 * `dataset_mapping.csv`: Complete file mapping and metadata
 
----
 
 ### 🧠 Model Setup
 
@@ -123,7 +168,6 @@ project_root/
 
 Once placed correctly, the project should automatically load the model when running the application.
 
----
 
 ### 3. Test Installation
 
@@ -135,7 +179,6 @@ cd gan_training
 python test_setup.py
 ```
 
----
 
 ## 🚀 Quick Start
 
@@ -176,7 +219,6 @@ tensorboard --logdir=logs
 tail -f logs/training.log
 ```
 
----
 
 ## 📊 Dataset Details
 
@@ -201,7 +243,6 @@ tail -f logs/training.log
 * **gCNR** (Generalized CNR)
 * **KS Test** (Kolmogorov-Smirnov statistical test)
 
----
 
 ## 🧠 Model Architecture
 
@@ -225,7 +266,6 @@ tail -f logs/training.log
 * **Perceptual Loss (VGG)**
 * **CNR Loss (medical-specific)**
 
----
 
 ## 📈 Results and Evaluation
 
@@ -235,7 +275,6 @@ Training results are automatically saved to:
 * `gan_training/logs/`: Training metrics and TensorBoard logs
 * `gan_training/results/`: Generated sample images
 
----
 
 ## 🔬 Research Context
 
@@ -246,13 +285,11 @@ This project is based on research in medical image dehazing and denoising:
 * Focuses on preserving diagnostic detail
 * Uses domain-specific medical metrics
 
----
 
 ## 📚 References
 
 See the `Papers/` directory for related research papers.
 
----
 
 ## 🤝 Contributing
 
@@ -262,13 +299,11 @@ See the `Papers/` directory for related research papers.
 4. Push to branch (`git push origin feature/improvement`)
 5. Create a Pull Request
 
----
 
 ## 📄 License
 
 [Specify your license here]
 
----
 
 ## 🆘 Support
 
@@ -279,9 +314,7 @@ For questions or issues:
 3. Run the setup test script
 4. Open an issue with details
 
----
 
 **Note:** This project is part of the **CSE498 coursework** and focuses on **medical image enhancement using deep learning**.
 
----
 

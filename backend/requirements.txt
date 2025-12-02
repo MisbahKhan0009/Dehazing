@@ -1,0 +1,6 @@
+flask>=3.0.0
+pillow>=10.0.0
+numpy>=1.24.0
+torch>=2.1.0; platform_system != 'Windows' or platform_machine != 'x86'
+# On Windows x86, install torch following https://pytorch.org/get-started/locally/
+# Example (CUDA 12.1): pip install --index-url https://download.pytorch.org/whl/cu121 torch torchvision torchaudio
