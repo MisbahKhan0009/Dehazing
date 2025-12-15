@@ -167,3 +167,4 @@ tb_logs/
 
 Dataset_Old/
 Dataset_augmented/
+checkpoints/
