@@ -1,4 +1,0 @@
-epoch=197
-metric=ssim
-metric_value=0.7961800382349615
-path=checkpoints\unet_dehazing\unet_best.pth
