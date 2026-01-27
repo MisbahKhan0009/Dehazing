@@ -49,14 +49,37 @@
 | 50 | 31.19 | 0.9512 | 0.0618 | Mid-training capability |
 | 100 | **31.82** | **0.954** | **0.059** | Final Convergence |
 
-### B. Comparative Analysis (vs. Baselines)
+### B. U-Net (Baseline)
+*Standard Encoder-Decoder Architecture*
+
+**Training Configuration**:
+*   **Epochs**: 200
+*   **Batch Size**: 8
+*   **Learning Rate**: 2e-4
+*   **Dataset**: Dataset_augmented (~7000 images, 3x augmentation)
+
+**Final Validation Metrics (Epoch 200)**:
+*   **PSNR**: **26.23 dB**
+*   **SSIM**: **0.795**
+*   **Validation Loss**: 0.0214
+
+**Training Progression (Key Milestones)**:
+| Epoch | PSNR (dB) | SSIM | Loss | Note |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | 17.48 | 0.243 | 0.0751 | Initial Training |
+| 50 | 24.70 | 0.760 | 0.0253 | Steady Improvement |
+| 100 | 25.62 | 0.780 | 0.0228 | Convergence begins |
+| 150 | 26.05 | 0.790 | 0.0219 | Fine-tuning |
+| 200 | **26.23** | **0.795** | **0.0214** | Final Convergence |
+
+### C. Comparative Analysis (vs. Baselines)
 
 | Model Architecture | PSNR (avg) | SSIM (avg) | Inference Speed | Key Characteristics |
 | :--- | :--- | :--- | :--- | :--- |
-| **U-Net (Baseline)** | ~28.5 dB | 0.82 | **Fastest (15ms)** | Effective but produces over-smoothed outcomes. Lacks texture preservation. |
+| **U-Net (Baseline)** | 26.23 dB | 0.795 | **Fastest (15ms)** | Effective but produces over-smoothed outcomes. Lacks texture preservation. |
 | **GAN (Pix2Pix)** | ~29.8 dB | 0.89 | Fast (15ms) | High perceptual quality and texture detail, but unstable training and occasional artifacts. |
 | **Diffusion (DDPM)** | N/A | High | Slow | Excellent quality but computationally expensive for real-time medical video. |
-| **Mamba-UNet (Ours)**| **31.86 dB** | **0.955** | Fast (18ms) | **Best Balance**: Linear scaling complexity with global context awareness. |
+| **Mamba-UNet (Ours)**| **31.82 dB** | **0.954** | Fast (18ms) | **Best Balance**: Linear scaling complexity with global context awareness. |
 
 ---
 
